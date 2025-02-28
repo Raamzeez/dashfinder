@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 import requests
 from bs4 import BeautifulSoup
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -12,7 +13,9 @@ def index():
 
 @app.route('/carplay-vehicles')
 def carplayVehicles():
-    brands = []  # {name: string, models: string[]}
+    # model = {name: string, startYear: string, endYear: string}
+    # {name: string, models: model[]}
+    brands = []
     page = requests.get(
         "https://www.apple.com/ios/carplay/available-models/")
     soup = BeautifulSoup(page.content, "html.parser")
@@ -31,6 +34,33 @@ def carplayVehicles():
                 model = {"name": model_name,
                          "startYear": startYear, "endYear": endYear}
                 car_models.append(model)
+            brands.append({"name": company_name, "models": car_models})
+    return brands
+
+
+@app.route('/android-auto-vehicles')
+def androidAutoVehicles():
+    # model = {name: string, startYear: string, endYear: string}
+    # {name: string, models: model[]}
+    brands = []
+    page = requests.get(
+        "https://www.android.com/auto/compatibility/")
+    soup = BeautifulSoup(page.content, "html.parser")
+    sections = soup.find_all("section", class_="accordion-list--primary")
+    for section in sections:
+        company_name = section.find("span")
+        if (company_name):
+            company_name = company_name.text
+            vehicles = section.find_all("li")
+            car_models = []
+            for vehicle in vehicles:
+                splitText = vehicle.text.split()
+                model_name = splitText[0]
+                if (len(splitText) > 1):
+                    startYear = splitText[1][:4]
+                    model = {"name": model_name,
+                             "startYear": startYear, "endYear": str(datetime.now().year)}
+                    car_models.append(model)
             brands.append({"name": company_name, "models": car_models})
     return brands
 
