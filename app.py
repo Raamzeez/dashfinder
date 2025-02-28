@@ -28,13 +28,15 @@ def carplayVehicles():
             vehicles = company.find_all("li")
             car_models = []
             for vehicle in vehicles:
+                for tag in vehicle.find_all("figure"):
+                    tag.decompose()
                 startYear = vehicle.text[:4]
                 if " - " not in vehicle.text:
-                    model_name = vehicle.text[5:]
+                    model_name = vehicle.text[5:].replace('\u2011', '-')
                     endYear = str(datetime.now().year)
                 else:
                     endYear = vehicle.text[7:11]
-                    model_name = vehicle.text[12:]
+                    model_name = vehicle.text[12:].replace('\u2011', '-')
                 model = {"name": model_name,
                          "startYear": startYear, "endYear": endYear}
                 car_models.append(model)
