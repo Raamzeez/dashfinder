@@ -29,8 +29,12 @@ def carplayVehicles():
             car_models = []
             for vehicle in vehicles:
                 startYear = vehicle.text[:4]
-                endYear = vehicle.text[7:11]
-                model_name = vehicle.text[12:]
+                if " - " not in vehicle.text:
+                    model_name = vehicle.text[5:]
+                    endYear = str(datetime.now().year)
+                else:
+                    endYear = vehicle.text[7:11]
+                    model_name = vehicle.text[12:]
                 model = {"name": model_name,
                          "startYear": startYear, "endYear": endYear}
                 car_models.append(model)
