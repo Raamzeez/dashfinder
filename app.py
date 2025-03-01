@@ -34,14 +34,16 @@ def carplayVehicles():
                     supports_car_key = True
                 vehicle_text = vehicle.text.strip()
                 vehicle_text = re.sub(
-                    r'\\u[0-9a-fA-F]{4}', '', vehicle_text.encode('unicode_escape').decode())
+                    r'\\u[0-9a-fA-F]{4}',
+                    '',
+                    vehicle_text.encode('unicode_escape').decode())
                 startYear = vehicle_text[:4]
                 if " - " not in vehicle_text:
-                    model_name = vehicle_text[5:].replace('\u2011', '-')
+                    model_name = vehicle_text[5:]
                     endYear = str(datetime.now().year)
                 else:
                     endYear = vehicle_text[7:11]
-                    model_name = vehicle_text[12:].replace('\u2011', '-')
+                    model_name = vehicle_text[12:]
                 model = {"name": model_name,
                          "startYear": startYear, "endYear": endYear,
                          "supportsCarKey": supports_car_key}
@@ -52,7 +54,11 @@ def carplayVehicles():
 
 @app.route('/android-auto-vehicles')
 def androidAutoVehicles():
-    # model = {name: string, startYear: string, endYear: string}
+    # model = {name: string,
+    # startYear: string,
+    # endYear: string,
+    # wirelessCompatibility: bool}
+
     # {name: string, models: model[]}
     brands = []
     page = requests.get(
@@ -66,14 +72,22 @@ def androidAutoVehicles():
             vehicles = section.find_all("li")
             car_models = []
             for vehicle in vehicles:
-                splitText = vehicle.text.split()
-                model_name = splitText[0]
-                if (len(splitText) > 1):
-                    startYear = splitText[1][:4]
-                    model = {"name": model_name,
-                             "startYear": startYear, "endYear": str(datetime.now().year)}
-                    car_models.append(model)
-            brands.append({"name": company_name, "models": car_models})
+                wireless_compatibility = False
+                vehicle_text = vehicle.text.strip()
+                if (vehicle_text[-1] == "*"):
+                    model_name = vehicle_text[:-8]
+                    startYear = vehicle_text[-7:-3]
+                    wireless_compatibility = True
+                else:
+                    model_name = vehicle_text[:-6]
+                    startYear = vehicle_text[-5:-1]
+                model = {"name": model_name,
+                         "startYear": startYear,
+                         "endYear": str(datetime.now().year),
+                         "wireless": wireless_compatibility}
+                car_models.append(model)
+            brands.append({"name": company_name,
+                           "models": car_models})
     return brands
 
 
