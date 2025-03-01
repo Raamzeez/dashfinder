@@ -9,6 +9,7 @@ server/.coverage*
 server/htmlcov/
 server/.tox/
 server/docs/_build/
+*.pyc
 
 # Logs (Client)
 client/logs/
