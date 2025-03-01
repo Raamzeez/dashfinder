@@ -10,7 +10,6 @@ app = Flask(__name__)
 def index():
     return render_template("./index.html")
 
-
 @app.route('/carplay-vehicles')
 def carplayVehicles():
     return carplay.fetch_carplay_vehicles()
@@ -19,6 +18,11 @@ def carplayVehicles():
 def androidAutoVehicles():
    return androidauto.fetch_android_auto_vehicles()
 
+@app.route('/')
+def vehicles():
+    data = []
+    return data
 
+    
 if __name__ == "__main__":
     app.run(debug=True)

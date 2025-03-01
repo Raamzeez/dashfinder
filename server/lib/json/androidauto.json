@@ -1,0 +1,19 @@
+[
+  {
+    "models": [
+      {
+        "endYear": "2025",
+        "name": "595",
+        "startYear": "2017",
+        "wireless": false
+      },
+      {
+        "endYear": "2025",
+        "name": "695",
+        "startYear": "2017",
+        "wireless": false
+      }
+    ],
+    "name": "Abarth"
+  }
+]

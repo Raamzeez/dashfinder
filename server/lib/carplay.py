@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 
 def fetch_carplay_vehicles():
-        # model = {name: string, carKeyCompatible: bool, startYear: string, endYear: string}
+    # model = {name: string, carKeyCompatible: bool, startYear: string, endYear: string}
     # {name: string, models: model[]}
     brands = []
     page = requests.get(

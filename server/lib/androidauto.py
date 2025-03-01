@@ -4,10 +4,11 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 
 def fetch_android_auto_vehicles():
- # model = {name: string,
-    # startYear: string,
-    # endYear: string,
-    # wirelessCompatibility: bool}
+    # model = {name: string,
+        # startYear: string,
+        # endYear: string,
+        # wirelessCompatibility: bool
+    #}
 
     # {name: string, models: model[]}
     brands = []

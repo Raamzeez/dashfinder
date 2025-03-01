@@ -1,0 +1,13 @@
+[
+  {
+    "models": [
+      {
+        "endYear": "2024",
+        "name": "A110",
+        "startYear": "2021",
+        "supportsCarKey": false
+      }
+    ],
+    "name": "alpine"
+  }
+]
