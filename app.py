@@ -1,5 +1,6 @@
-from flask import Flask, render_template
 import requests
+import re
+from flask import Flask, render_template
 from bs4 import BeautifulSoup
 from datetime import datetime
 
@@ -13,7 +14,7 @@ def index():
 
 @app.route('/carplay-vehicles')
 def carplayVehicles():
-    # model = {name: string, startYear: string, endYear: string}
+    # model = {name: string, carKeyCompatible: bool, startYear: string, endYear: string}
     # {name: string, models: model[]}
     brands = []
     page = requests.get(
@@ -28,17 +29,22 @@ def carplayVehicles():
             vehicles = company.find_all("li")
             car_models = []
             for vehicle in vehicles:
-                for tag in vehicle.find_all("figure"):
-                    tag.decompose()
-                startYear = vehicle.text[:4]
-                if " - " not in vehicle.text:
-                    model_name = vehicle.text[5:].replace('\u2011', '-')
+                supports_car_key = False
+                if vehicle.find('figure'):
+                    supports_car_key = True
+                vehicle_text = vehicle.text.strip()
+                vehicle_text = re.sub(
+                    r'\\u[0-9a-fA-F]{4}', '', vehicle_text.encode('unicode_escape').decode())
+                startYear = vehicle_text[:4]
+                if " - " not in vehicle_text:
+                    model_name = vehicle_text[5:].replace('\u2011', '-')
                     endYear = str(datetime.now().year)
                 else:
-                    endYear = vehicle.text[7:11]
-                    model_name = vehicle.text[12:].replace('\u2011', '-')
+                    endYear = vehicle_text[7:11]
+                    model_name = vehicle_text[12:].replace('\u2011', '-')
                 model = {"name": model_name,
-                         "startYear": startYear, "endYear": endYear}
+                         "startYear": startYear, "endYear": endYear,
+                         "supportsCarKey": supports_car_key}
                 car_models.append(model)
             brands.append({"name": company_name, "models": car_models})
     return brands
