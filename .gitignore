@@ -1,10 +1,54 @@
-.idea/
-.vscode/
-.env*/
-env*/
-__pycache__/
-dist/
-.coverage*
-htmlcov/
-.tox/
-docs/_build/
+# Flask backend
+server/.idea/
+server/.vscode/
+server/.env*/
+server/env*/
+server/__pycache__/
+server/dist/
+server/.coverage*
+server/htmlcov/
+server/.tox/
+server/docs/_build/
+
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+client/node_modules
+client/.pnp
+client/.pnp.*
+client/.yarn/*
+!client/.yarn/patches
+!client/.yarn/plugins
+!client/.yarn/releases
+!client/.yarn/versions
+
+# testing
+client/coverage
+
+# next.js
+client/.next/
+client/out/
+
+# production
+client/build
+
+# misc
+client/.DS_Store
+*.pem
+
+# debug
+client/npm-debug.log*
+client/yarn-debug.log*
+client/yarn-error.log*
+client/.pnpm-debug.log*
+
+# env files (can opt-in for committing if needed)
+client/.env*
+server/.env*
+
+# vercel
+client/.vercel
+
+# typescript
+client/*.tsbuildinfo
+client/next-env.d.ts
