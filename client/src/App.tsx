@@ -1,35 +1,15 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-
-function App() {
-  const [count, setCount] = useState(0)
-
+const App = () => {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div className="flex flex-col items-center min-h-screen w-screen p-8 bg-white bg-[url('https://img.freepik.com/free-vector/winter-blue-pink-gradient-background-vector_53876-117276.jpg?t=st=1740857092~exp=1740860692~hmac=fd7b403492528b286fb4a6dc352b5c34cf1df0b8fd0777b20d649e0aa2a1235c&w=2000')] bg-cover bg-center">
+      <h1 className="text-2xl font-semibold text-gray-700">
+        Enter Vehicle Name
+      </h1>
+      <input
+        type="text"
+        className="min-w-80 w-1/2 bg-gray-100 shadow-sm border-none rounded-xl p-4 outline-none my-10 h-10"
+      />
+    </div>
+  );
+};
 
-export default App
+export default App;
