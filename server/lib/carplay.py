@@ -4,9 +4,8 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 
 def fetch_carplay_vehicles():
-    # model = {name: string, carKeyCompatible: bool, startYear: string, endYear: string}
-    # {name: string, models: model[]}
-    brands = []
+    #{brand: string, model: string, carKeyCompatible: bool, startYear: string, endYear: string}[]
+    data = []
     page = requests.get(
         "https://www.apple.com/ios/carplay/available-models/")
     soup = BeautifulSoup(page.content, "html.parser")
@@ -17,7 +16,6 @@ def fetch_carplay_vehicles():
         if (company_name):
             company_name = company_name.text
             vehicles = company.find_all("li")
-            car_models = []
             for vehicle in vehicles:
                 supports_car_key = False
                 if vehicle.find('figure'):
@@ -34,9 +32,8 @@ def fetch_carplay_vehicles():
                 else:
                     endYear = vehicle_text[7:11]
                     model_name = vehicle_text[12:]
-                model = {"name": model_name,
+                model = {"brand": company_name, "name": model_name,
                          "startYear": startYear, "endYear": endYear,
                          "supportsCarKey": supports_car_key}
-                car_models.append(model)
-            brands.append({"name": company_name, "models": car_models})
-    return brands
+                data.append(model)
+    return data

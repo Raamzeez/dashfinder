@@ -1,0 +1,12 @@
+[
+  {
+    "brand": "Acura",
+    "model": "TLX",
+    "carplayStartYear": 2016,
+    "carplayEndYear": 2025,
+    "androidAutoStartYear": 2020,
+    "androidAutoEndYear": 2025,
+    "wirelessAndroidAuto": true,
+    "supportsCarKey": false
+  }
+]

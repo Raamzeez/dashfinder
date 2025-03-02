@@ -1,13 +1,9 @@
 [
   {
-    "models": [
-      {
-        "endYear": "2024",
-        "name": "A110",
-        "startYear": "2021",
-        "supportsCarKey": false
-      }
-    ],
-    "name": "alpine"
+    "brand": "alpine",
+    "endYear": "2024",
+    "model": "A110",
+    "startYear": "2021",
+    "supportsCarKey": false
   }
 ]
