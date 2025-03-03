@@ -23,13 +23,7 @@ def vehicles():
     data = []
     # carplay_cars = carplay.fetch_carplay_vehicles()
     # android_auto_cars = androidauto.fetch_android_auto_vehicles()
-    # for i in range(len(carplay_cars)):
-    #     carplay_car_company = carplay_cars[i].name
-    #     android_auto_car = None
-    #     for j in range(len(android_auto_cars)):
-    #         android_auto_car_company = android_auto_cars[j].name
     return data
-
 
     
 if __name__ == "__main__":

@@ -3,14 +3,23 @@ import re
 from bs4 import BeautifulSoup
 from datetime import datetime
 
+from lib import carimage
+
+
 def fetch_carplay_vehicles():
-    #{brand: string, model: string, carKeyCompatible: bool, startYear: string, endYear: string}[]
+    #{image: string, brand: string, model: string, carKeyCompatible: bool, startYear: string, endYear: string}[]
+    css_url = "https://www.apple.com/v/ios/carplay/m/built/styles/available-models.built.css"
+    css_data = requests.get(css_url).text
     data = []
     page = requests.get(
         "https://www.apple.com/ios/carplay/available-models/")
     soup = BeautifulSoup(page.content, "html.parser")
     companies = soup.find_all("div", class_="row")
     for company in companies:
+        image_classes_array = company.find("figure").get("class")
+        if (len(image_classes_array) > 1):
+            image_class = image_classes_array[1]
+        image_url = carimage.get_car_image_url(css_data, image_class)
         company_name = company.find(
             "span", class_="image-logo-text")
         if (company_name):
@@ -32,7 +41,7 @@ def fetch_carplay_vehicles():
                 else:
                     endYear = vehicle_text[7:11]
                     model_name = vehicle_text[12:]
-                model = {"brand": company_name, "name": model_name,
+                model = {"image": image_url, "brand": company_name, "model": model_name,
                          "startYear": startYear, "endYear": endYear,
                          "supportsCarKey": supports_car_key}
                 data.append(model)
