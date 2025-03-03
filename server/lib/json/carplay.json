@@ -2,9 +2,9 @@
   {
     "image": "https://www.apple.com/v/ios/carplay/m/images/available-models/abarth__tmj862ib2hui_large.jpg",
     "brand": "abarth",
-    "endYear": "2024",
+    "endYear": 2024,
     "model": "Abarth 595",
-    "startYear": "2017",
+    "startYear": 2017,
     "supportsCarKey": false
   }
 ]

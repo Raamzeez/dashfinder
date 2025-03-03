@@ -1,12 +1,13 @@
 [
   {
-    "brand": "Acura",
-    "model": "TLX",
-    "carplayStartYear": 2016,
-    "carplayEndYear": 2025,
-    "androidAutoStartYear": 2020,
+    "image": "https://lh3.googleusercontent.com/gqRvOn_6Ax4-rWkFVOktnYiX5yujKaY_D07Ng-hnUVH9igb67dYCtMUjJ0rxoBTzeJi9OquaUQ9YhSzltmSDh3PUvmdR0fg5FnqV_F88irgO8Ik6Xmt1",
+    "brand": "Abarth",
     "androidAutoEndYear": 2025,
-    "wirelessAndroidAuto": true,
+    "androidAutoStartYear": 2017,
+    "carplayStartYear": 2017,
+    "carplayEndYear": 2025,
+    "model": "595",
+    "wirelessAndroidAuto": false,
     "supportsCarKey": false
   }
 ]

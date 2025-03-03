@@ -1,9 +1,10 @@
 [
   {
+    "image": "https://lh3.googleusercontent.com/gqRvOn_6Ax4-rWkFVOktnYiX5yujKaY_D07Ng-hnUVH9igb67dYCtMUjJ0rxoBTzeJi9OquaUQ9YhSzltmSDh3PUvmdR0fg5FnqV_F88irgO8Ik6Xmt1",
     "brand": "Abarth",
-    "endYear": "2025",
+    "endYear": 2025,
     "model": "595",
-    "startYear": "2017",
+    "startYear": 2017,
     "wireless": false
   }
 ]

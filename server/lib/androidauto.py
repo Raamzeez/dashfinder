@@ -4,19 +4,13 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 
 def fetch_android_auto_vehicles():
-    #{brand: string,
-    # model: string,
-        # startYear: string,
-        # endYear: string,
-        # wirelessCompatibility: bool
-    #[]
-    
     data = []
     page = requests.get(
         "https://www.android.com/auto/compatibility/")
     soup = BeautifulSoup(page.content, "html.parser")
     sections = soup.find_all("section", class_="accordion-list--primary")
     for section in sections:
+        image_url = section.find("img").get("srcset")[:-5]
         company_name = section.find("span")
         if (company_name):
             company_name = company_name.text
@@ -31,10 +25,16 @@ def fetch_android_auto_vehicles():
                 else:
                     model_name = vehicle_text[:-6]
                     startYear = vehicle_text[-5:-1]
-                model = {"brand": company_name,
-                    "model": model_name,
+                year_pattern = r'\s+\d{4}'
+                if not re.search(year_pattern, vehicle_text):
+                    startYear = None
+                else:
+                    startYear = int(startYear)
+                model = {"image": image_url, 
+                         "brand": company_name,
+                         "model": model_name,
                          "startYear": startYear,
-                         "endYear": str(datetime.now().year),
+                         "endYear": datetime.now().year,
                          "wireless": wireless_compatibility}
                 data.append(model)
     return data
