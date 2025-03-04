@@ -7,7 +7,7 @@ from lib import carimage
 
 
 def fetch_carplay_vehicles():
-    #{image: string, brand: string, model: string, carKeyCompatible: bool, startYear: string, endYear: string}[]
+    # {image: string, brand: string, model: string, carKeyCompatible: bool, startYear: string, endYear: string}[]
     css_url = "https://www.apple.com/v/ios/carplay/m/built/styles/available-models.built.css"
     css_data = requests.get(css_url).text
     data = []
@@ -30,17 +30,20 @@ def fetch_carplay_vehicles():
                 if vehicle.find('figure'):
                     supports_car_key = True
                 vehicle_text = vehicle.text.strip()
-                vehicle_text = re.sub(
-                    r'\\u[0-9a-fA-F]{4}',
-                    '',
-                    vehicle_text.encode('unicode_escape').decode())
-                startYear = vehicle_text[:4]
-                if " - " not in vehicle_text:
-                    model_name = vehicle_text[5:]
-                    endYear = str(datetime.now().year)
+                split_text = vehicle_text.split(" ")
+                startYear = int(float(split_text[0]))
+                i = 3
+                if split_text[1] != "-":
+                    i = 1
+                    endYear = datetime.now().year
                 else:
-                    endYear = vehicle_text[7:11]
-                    model_name = vehicle_text[12:]
+                    endYear = int(split_text[2])
+                model_name = ""
+                while i < len(split_text):
+                    model_name += split_text[i]
+                    if (i < len(split_text) - 1):
+                        model_name += " "
+                    i += 1
                 model = {"image": image_url, "brand": company_name, "model": model_name,
                          "startYear": startYear, "endYear": endYear,
                          "supportsCarKey": supports_car_key}
