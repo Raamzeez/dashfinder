@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 
 from lib import carimage
+from lib import filtermodel
 
 
 def fetch_carplay_vehicles():
@@ -44,7 +45,9 @@ def fetch_carplay_vehicles():
                     if (i < len(split_text) - 1):
                         model_name += " "
                     i += 1
-                model = {"image": image_url, "brand": company_name, "model": model_name,
+                model = {"image": image_url,
+                         "brand": company_name,
+                         "model": filtermodel.filter_model(model_name, company_name),
                          "startYear": startYear, "endYear": endYear,
                          "supportsCarKey": supports_car_key}
                 data.append(model)

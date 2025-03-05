@@ -3,6 +3,9 @@ import re
 from bs4 import BeautifulSoup
 from datetime import datetime
 
+from lib import filtermodel
+
+
 def fetch_android_auto_vehicles():
     data = []
     page = requests.get(
@@ -30,9 +33,9 @@ def fetch_android_auto_vehicles():
                     startYear = None
                 else:
                     startYear = int(startYear)
-                model = {"image": image_url, 
+                model = {"image": image_url,
                          "brand": company_name,
-                         "model": model_name,
+                         "model": filtermodel.filter_model(model_name, company_name),
                          "startYear": startYear,
                          "endYear": datetime.now().year,
                          "wireless": wireless_compatibility}
